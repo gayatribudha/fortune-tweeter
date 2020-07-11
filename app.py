@@ -18,7 +18,8 @@ status = os.getenv('CONSUMER_KEY')
 
 # Fetch quuotes from Fortune Program
 def fetch_fortune():
-    quote=os.popen('fortune stoic-quotes').read()
+    category = os.getenv('CATEGORY')
+    quote=os.popen('fortune ' + category).read()
     return quote
 
 # Upload fortune tweet to twitter
@@ -37,7 +38,7 @@ def tweet_fortune():
     while (len(quote) >= 236):
         quote = fetch_fortune()
 
-    api.update_status(status = quote + "\n #Stocism #DailyStoic #Stoic1O1 #StoicLiving")
+    api.update_status(status = quote +'\n' + os.getenv('HASHTAGS'))
 
 
 tweet_fortune()
